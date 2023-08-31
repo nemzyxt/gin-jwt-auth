@@ -13,7 +13,7 @@ Gin API authentication and authorization using JWTs
 
 - Run `go run main.go` to start the server
 - Interact with the various endpoints as appropriate \
-  For the `/auth` endpoint, the credentials are hardcoded \
+  For the `/auth` endpoint, the credentials are hardcoded: 
   `username: admin password: secret`
 
 Have fun!
