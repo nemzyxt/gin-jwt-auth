@@ -9,6 +9,8 @@ package main
 import (
 	"auth/handlers"
 	"auth/middleware"
+	"fmt"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -25,5 +27,5 @@ func main() {
 	router.POST("/auth", handlers.AuthRouteHandler);
 	router.GET("/protected", middleware.AuthMiddleware(), handlers.ProtectedRouteHandler);
 
-	router.Run(":1234");
+	router.Run(fmt.Sprintf("%s:%s", os.Getenv("HOST"), os.Getenv("PORT")));
 }
