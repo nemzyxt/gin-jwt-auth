@@ -23,13 +23,18 @@ func AuthMiddleware() gin.HandlerFunc {
 		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 			return []byte(os.Getenv("SECRET_KEY")), nil
 		})
-		if err != nil || !token.Valid {
+		if err != nil {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid or expired token"})
 			c.Abort()
 			return
 		}
 
-		// token is valid; proceed to the next handler
+		if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+			username := claims["username"]
+			c.Set("username", username)
+		}
+
+		// proceed to the next handler
 		c.Next()
 	}
 }
